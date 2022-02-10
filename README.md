@@ -43,3 +43,167 @@
     > Status.STALE : 유통기한이 지남
     >
     > Status.UNKNOWN : 유통기한 모름
+
+
+
+
+
+## 구조적 설계
+
+> 수정 가능성 있음
+
+<img src="foodbasket_%E1%84%89%E1%85%A5%E1%86%AF%E1%84%80%E1%85%A8.png" alt="foodbasket_설계" style="zoom:50%;" />
+
+
+
+### Domain 
+
+- **Food**
+
+  - (Long) id
+  - (String) name
+  - (int) quantity
+  - (Enum) category
+  - (Enum) location 
+  - (Enum) status
+  - (LocalDateTime) expirationDate
+
+- **(Enum) Category**
+
+  - MEAT : 육류
+  - VEGE : 채소
+  - FRUIT : 과일
+  - MILK : 유제품
+  - ETC : 기타
+
+- **(Enum)** **Location**
+
+  - REFRIGERATOR : 냉장실
+  - FREEZER : 냉동실
+
+- **(Enum) Status**
+
+  - SAFE : 유통기한까지 여유가 있음
+  - WARNING : 유통기한까지 1일 이하 남음
+  - DANGER : 유통기한 지남
+  - NONE : 유통기한 모름 or 사용자가 입력하지 않음
+
+- **BaseTimeEntity**
+
+  - (LocalDateTime) initDate
+
+    > Entity가 생성될 때 자동으로 생성되도록 설계
+
+
+
+### Repository
+
+- **FoodRepository**
+
+
+
+### Service
+
+- **FoodService**
+
+
+
+### Controller
+
+- **HomeController**
+- **FoodController**
+
+
+
+## Mapping 설계
+
+> 수정 가능성 있음
+
+
+
+### HomeController
+
+- `GetMapping` ( / ) 
+
+  >  메인페이지
+
+  
+
+### FoodController
+
+- `GetMapping` (/foods)
+
+  > 냉장고와 냉동실로 따로 조회하여 각 영역에 맞게 ListUp
+
+- `GetMapping` (/foods/{foodId})
+
+  > 식료품 상세페이지
+
+- `GetMapping` (/foods/save)
+
+  > 식료품 추가 폼
+
+- `PostMapping` (/foods/save)
+
+  > 식료품 추가
+  >
+  > redirect:/
+
+- `GetMapping` (/foods/{foodId}/edit)
+
+  > 식료품 수정 폼 
+
+- `PostMapping` (/foods/{foodId}/edit)
+
+  > 식료품 수정
+  >
+  > redirect:/foods/{foodId}
+
+
+
+
+
+## Table 설계
+
+> 수정 가능성 있음
+
+- FOOD
+
+  - Id
+
+    > @Id
+    >
+    > @GeneratedValue
+
+  - name
+
+    > @Column(length = 20, nullable = false)
+
+  - quantity
+
+    > @Column(nullable = false)
+
+  - category
+
+    > @Column(nullable = false)
+
+  - location 
+
+    > @Column(nullable = false)
+
+  - status
+
+    > @Column(nullable = false)
+
+  - expirationDate
+
+    > @Column(nullable = true)
+
+
+
+
+
+
+
+
+

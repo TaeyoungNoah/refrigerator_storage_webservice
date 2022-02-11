@@ -201,7 +201,34 @@
 
 
 
+## TODOLIST
 
+- 도메인 구체화 ✅
+
+- 요구사항에 맞게 Repository 구체화
+
+  - C
+
+    > Entity 생성 (DTO 이용)
+
+  - R
+
+    > initDate 순서대로 ListUp
+    > expirationDate 가 가까운 순으로 ListUp
+    > 월별 필터링
+    > status 로 필터링
+
+  - U
+
+    > Entity 수정 (DTO 이용)
+
+  - D
+
+    > Entity 삭제
+
+- 요구사항에 맞게 Service 구체화
+- Service Test코드 작성
+- Web 구현
 
 
 

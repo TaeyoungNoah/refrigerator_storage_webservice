@@ -20,8 +20,7 @@ import java.time.temporal.ChronoUnit;
 @Entity
 public class Food extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     Long id;
 
     @Column(length = 20, nullable = false)
@@ -36,7 +35,7 @@ public class Food extends BaseTimeEntity {
     @Column(nullable = false)
     Location location;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     Status status;
 
     @Column(nullable = true)

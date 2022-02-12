@@ -49,38 +49,38 @@ public class FoodRepositoryTest {
         Assertions.assertThat(findOne.getLocation()).isEqualTo(Location.FREEZER);
     }
 
-//    @Test
-//    public void 전체조회() throws Exception {
-//        // given
-//        Food food1 = Food.builder()
-//                .name("test1")
-//                .quantity(1)
-//                .category(Category.FRUIT)
-//                .location(Location.FREEZER)
-//                .expirationDate(LocalDateTime.of(2022,3,3,3,3))
-//                .build();
-//
-//        Food food2 = Food.builder()
-//                .name("test2")
-//                .quantity(2)
-//                .category(Category.FRUIT)
-//                .location(Location.FREEZER)
-//                .expirationDate(LocalDateTime.of(2022,3,3,3,3))
-//                .build();
-//
-//
-//        Long saveId1 = foodRepository.save(food1);
-//        Long saveId2 = foodRepository.save(food2);
-//
-//
-//        // when
-//        List<Food> foods = foodRepository.findAll();
-//
-//        // then
-//        Assertions.assertThat(foods.size()).isEqualTo(2);
-//        Assertions.assertThat(foods.get(0).getName()).isEqualTo("test1");
-//        Assertions.assertThat(foods.get(1).getName()).isEqualTo("test2");
-//    }
+    @Test
+    public void 전체조회() throws Exception {
+        // given
+        Food food1 = Food.builder()
+                .name("test1")
+                .quantity(1)
+                .category(Category.FRUIT)
+                .location(Location.FREEZER)
+                .expirationDate(LocalDateTime.of(2022,3,3,3,3))
+                .build();
+
+        Food food2 = Food.builder()
+                .name("test2")
+                .quantity(2)
+                .category(Category.FRUIT)
+                .location(Location.FREEZER)
+                .expirationDate(LocalDateTime.of(2022,3,3,3,3))
+                .build();
+
+
+        Long saveId1 = foodRepository.save(food1);
+        Long saveId2 = foodRepository.save(food2);
+
+
+        // when
+        List<Food> foods = foodRepository.findAll();
+
+        // then
+        Assertions.assertThat(foods.size()).isEqualTo(2);
+        Assertions.assertThat(foods.get(0).getName()).isEqualTo("test1");
+        Assertions.assertThat(foods.get(1).getName()).isEqualTo("test2");
+    }
 
     @Test
     public void BaseTimeEntity_등록확인() throws Exception {

@@ -22,6 +22,12 @@ public class FoodRepositoryTest {
     @Autowired
     FoodRepository foodRepository;
 
+    // 테스트 시점에 구애받지 않는 변수 생성
+    private LocalDateTime now = LocalDateTime.now();
+    private LocalDateTime nowPlusTwoDays = now.plusDays(2L);
+    private LocalDateTime nowPlusOneMonth = now.plusMonths(1L);
+    private LocalDateTime nowMinusTwoDays = now.minusDays(10L);
+
     @AfterEach
     public void cleanUp() {
         foodRepository.deleteAll();
@@ -35,7 +41,7 @@ public class FoodRepositoryTest {
                 .quantity(1)
                 .category(Category.FRUIT)
                 .location(Location.FREEZER)
-                .expirationDate(LocalDateTime.of(2022,3,3,3,3))
+                .expirationDate(nowPlusOneMonth)
                 .build();
 
         // when
@@ -57,7 +63,7 @@ public class FoodRepositoryTest {
                 .quantity(1)
                 .category(Category.FRUIT)
                 .location(Location.FREEZER)
-                .expirationDate(LocalDateTime.of(2022,3,3,3,3))
+                .expirationDate(nowPlusOneMonth)
                 .build();
 
         Food food2 = Food.builder()
@@ -65,7 +71,7 @@ public class FoodRepositoryTest {
                 .quantity(2)
                 .category(Category.FRUIT)
                 .location(Location.FREEZER)
-                .expirationDate(LocalDateTime.of(2022,3,3,3,3))
+                .expirationDate(nowPlusOneMonth)
                 .build();
 
 
@@ -91,7 +97,7 @@ public class FoodRepositoryTest {
                 .quantity(1)
                 .category(Category.FRUIT)
                 .location(Location.FREEZER)
-                .expirationDate(LocalDateTime.of(2022,3,3,3,3))
+                .expirationDate(nowPlusOneMonth)
                 .build();
         // when
         Long saveId = foodRepository.save(food);
@@ -107,7 +113,7 @@ public class FoodRepositoryTest {
     @Test
     public void Food의_Status생성확인_SAFE() throws Exception {
         // given
-        LocalDateTime flag = LocalDateTime.of(2022,2, 19,0,0);
+        LocalDateTime flag = nowPlusOneMonth;
         Food food = Food.builder()
                 .name("test")
                 .quantity(1)
@@ -126,7 +132,7 @@ public class FoodRepositoryTest {
     @Test
     public void Food의_Status생성확인_WARNING() throws Exception {
         // given
-        LocalDateTime flag = LocalDateTime.of(2022,2, 15,0,0);
+        LocalDateTime flag = nowPlusTwoDays;
         Food food = Food.builder()
                 .name("test")
                 .quantity(1)
@@ -145,7 +151,7 @@ public class FoodRepositoryTest {
     @Test
     public void Food의_Status생성확인_DANGER() throws Exception {
         // given
-        LocalDateTime flag = LocalDateTime.of(2022,2, 10,0,0);
+        LocalDateTime flag = nowMinusTwoDays;
         Food food = Food.builder()
                 .name("test")
                 .quantity(1)
@@ -164,7 +170,6 @@ public class FoodRepositoryTest {
     @Test
     public void Food의_Status생성확인_NONE() throws Exception {
         // given
-
         Food food = Food.builder()
                 .name("test")
                 .quantity(1)

@@ -61,7 +61,7 @@ public class FoodServiceTest {
     }
 
     @Test
-    @Rollback(value = false)
+//    @Rollback(value = false)
     public void Food_조회_전체() throws Exception {
         // given
         FoodSaveDto saveDto1 = createSaveDto();

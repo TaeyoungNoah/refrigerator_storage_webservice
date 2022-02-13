@@ -7,6 +7,7 @@ import springJr.foodbasket.domain.foods.Food;
 import springJr.foodbasket.domain.foods.FoodRepository;
 import springJr.foodbasket.web.dto.FoodResponseDto;
 import springJr.foodbasket.web.dto.FoodSaveDto;
+import springJr.foodbasket.web.dto.FoodUpdateDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +22,7 @@ public class FoodService {
 
     // C
     public Long saveFood(FoodSaveDto saveDto) {
-        Food food = Food.builder()
-                .name(saveDto.getName())
-                .quantity(saveDto.getQuantity())
-                .category(saveDto.getCategory())
-                .location(saveDto.getLocation())
-                .expirationDate(saveDto.getExpirationDate())
-                .build();
-
+        Food food = saveDto.toEntity();
         return foodRepository.save(food);
     }
 
@@ -48,6 +42,15 @@ public class FoodService {
     }
 
     // U
+    public Long update(Long foodId, FoodUpdateDto foodUpdateDto) {
+        Food findOne = foodRepository.findOneById(foodId);
+        findOne.update(foodUpdateDto.getName(),
+                foodUpdateDto.getQuantity(),
+                foodUpdateDto.getCategory(),
+                foodUpdateDto.getLocation(),
+                foodUpdateDto.getExpirationDate());
+        return foodId;
+    }
 
     // D
     public void deleteOneById(Long id) {

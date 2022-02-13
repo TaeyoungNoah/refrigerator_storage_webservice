@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 @Getter
 public class FoodResponseDto {
 
-    String name;
-    int quantity;
-    Category category;
-    Location location;
-    Status status;
-    LocalDateTime expirationDate;
+    private String name;
+    private int quantity;
+    private Category category;
+    private Location location;
+    private Status status;
+    private LocalDateTime expirationDate;
 
 
     public FoodResponseDto(Food entity) {

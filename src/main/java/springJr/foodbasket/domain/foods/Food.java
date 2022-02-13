@@ -51,7 +51,7 @@ public class Food extends BaseTimeEntity {
     }
 
 
-    // 상태판별
+    // 상태판별 (저장시)
     public void checkStatusInit() {
         final long FLAG_DATE = 2L;
         if (expirationDate == null) {
@@ -71,6 +71,7 @@ public class Food extends BaseTimeEntity {
         return;
     }
 
+    // 상태판별 (조회시)
     public void checkStatusLater() {
         final long FLAG_DATE = 2L;
         if (expirationDate == null) {

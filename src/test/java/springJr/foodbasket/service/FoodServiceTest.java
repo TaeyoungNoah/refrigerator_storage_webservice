@@ -11,10 +11,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import springJr.foodbasket.domain.Category;
 import springJr.foodbasket.domain.Location;
+import springJr.foodbasket.domain.Status;
 import springJr.foodbasket.domain.foods.Food;
 import springJr.foodbasket.domain.foods.FoodRepository;
 import springJr.foodbasket.web.dto.FoodResponseDto;
 import springJr.foodbasket.web.dto.FoodSaveDto;
+import springJr.foodbasket.web.dto.FoodUpdateDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,6 +32,14 @@ public class FoodServiceTest {
     @Autowired
     FoodRepository foodRepository;
 
+    // 테스트 시점에 구애받지 않는 변수 생성
+    private LocalDateTime now = LocalDateTime.now();
+    private LocalDateTime nowPlusTwoDays = now.plusDays(2L);
+    private LocalDateTime nowPlusOneMonth = now.plusMonths(1L);
+    private LocalDateTime nowMinusTwoDays = now.minusDays(10L);
+
+
+    // == C ==
     @Test
 //    @Rollback(value = false)
     public void Food_저장() throws Exception {
@@ -46,6 +56,7 @@ public class FoodServiceTest {
     }
 
 
+    // == R ==
     @Test
     public void Food_조회_하나() throws Exception {
         // given
@@ -83,6 +94,45 @@ public class FoodServiceTest {
         Assertions.assertThat(findAll.size()).isEqualTo(2);
     }
 
+    // == U ==
+    @Test
+    public void Food_수정하기() throws Exception {
+        // given
+        FoodSaveDto saveDto = createSaveDto();
+        Long saveId = foodService.saveFood(saveDto);
+
+        // when
+        FoodUpdateDto updateDto = createUpdateDto();
+        Long updateId = foodService.update(saveId, updateDto);
+        // then
+
+        Food findOne = foodRepository.findOneById(updateId);
+
+        Assertions.assertThat(saveId).isEqualTo(updateId);
+        Assertions.assertThat(findOne.getName()).isEqualTo("update");
+        Assertions.assertThat(findOne.getQuantity()).isEqualTo(2);
+        Assertions.assertThat(findOne.getCategory()).isEqualTo(Category.MEAT);
+        Assertions.assertThat(findOne.getLocation()).isEqualTo(Location.REFRIGERATOR);
+        Assertions.assertThat(findOne.getExpirationDate()).isEqualTo(nowPlusTwoDays);
+    }
+
+    @Test
+    public void Food_수정후_상태변화() throws Exception {
+        // given
+        Long saveId = foodService.saveFood(createSaveDto());
+        FoodResponseDto beforeUpdate = foodService.findOneById(saveId);
+
+        Assertions.assertThat(beforeUpdate.getStatus()).isEqualTo(Status.SAFE);
+
+        // when
+        Long updateId = foodService.update(saveId, createUpdateDto());
+
+        // then
+        FoodResponseDto afterUpdate = foodService.findOneById(updateId);
+        Assertions.assertThat(afterUpdate.getStatus()).isEqualTo(Status.WARNING);
+    }
+
+    // == D ==
     @Test
     public void Food_삭제() throws Exception {
         // given
@@ -108,7 +158,17 @@ public class FoodServiceTest {
                 3,
                 Category.FRUIT,
                 Location.FREEZER,
-                LocalDateTime.of(2022,3,3,0,0)
+                nowPlusOneMonth
+        );
+    }
+
+    private FoodUpdateDto createUpdateDto() {
+        return new FoodUpdateDto(
+                "update",
+                2,
+                Category.MEAT,
+                Location.REFRIGERATOR,
+                nowPlusTwoDays
         );
     }
 }

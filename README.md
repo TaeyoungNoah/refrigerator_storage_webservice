@@ -208,11 +208,11 @@
 
 - 요구사항에 맞게 Service 구체화
 
-  - C 
+  - C ✅
 
     > Entity 생성 (DTO 이용)
 
-  - R 
+  - R ✅(ListUp 제외 굵은 기본기능만)
 
     > initDate 순서대로 ListUp
     > expirationDate 가 가까운 순으로 ListUp
@@ -223,11 +223,11 @@
 
     > Entity 수정 (DTO 이용)
 
-  - D 
+  - D ✅
 
     > Entity 삭제
 
-- Service Test코드 작성
+- Service Test코드 작성 ✅
 
 - Web 구현
 

@@ -15,18 +15,24 @@ public class FoodRepository {
     // C
     public Long save(Food food) {
         em.persist(food);
-        food.checkStatus();
+        food.checkStatusInit();
         return food.getId();
     }
 
     // R
     public Food findOneById(Long id) {
-        return em.find(Food.class, id);
+        Food food = em.find(Food.class, id);
+        food.checkStatusLater();
+        return food;
     }
 
     public List<Food> findAll() {
-        return em.createQuery("select f from Food f", Food.class)
+        List<Food> findAll = em.createQuery("select f from Food f", Food.class)
                 .getResultList();
+        for (Food food : findAll) {
+            food.checkStatusLater();
+        }
+        return findAll;
     }
 
     // D

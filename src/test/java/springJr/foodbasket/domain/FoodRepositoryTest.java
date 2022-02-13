@@ -126,7 +126,7 @@ public class FoodRepositoryTest {
     @Test
     public void Food의_Status생성확인_WARNING() throws Exception {
         // given
-        LocalDateTime flag = LocalDateTime.of(2022,2, 13,0,0);
+        LocalDateTime flag = LocalDateTime.of(2022,2, 15,0,0);
         Food food = Food.builder()
                 .name("test")
                 .quantity(1)

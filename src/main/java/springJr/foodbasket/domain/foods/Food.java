@@ -52,7 +52,7 @@ public class Food extends BaseTimeEntity {
 
 
     // 상태판별
-    public void checkStatus() {
+    public void checkStatusInit() {
         final long FLAG_DATE = 2L;
         if (expirationDate == null) {
             this.status = Status.NONE;
@@ -70,6 +70,27 @@ public class Food extends BaseTimeEntity {
         this.status = Status.WARNING;
         return;
     }
+
+    public void checkStatusLater() {
+        final long FLAG_DATE = 2L;
+        if (expirationDate == null) {
+            this.status = Status.NONE;
+            return;
+        }
+        long between = ChronoUnit.DAYS.between(getModifiedDate(), expirationDate);
+        if (between <= 0) {
+            this.status = Status.DANGER;
+            return;
+        }
+        if (between > FLAG_DATE) {
+            this.status = Status.SAFE;
+            return;
+        }
+        this.status = Status.WARNING;
+        return;
+    }
+
+
 
 
     // Update

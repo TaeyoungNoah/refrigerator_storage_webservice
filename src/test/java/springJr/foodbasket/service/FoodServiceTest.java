@@ -148,7 +148,7 @@ public class FoodServiceTest {
 
         // then
         List<FoodResponseDto> findAll2 = foodService.findAll();
-        Assertions.assertThat(findAll.size()).isEqualTo(1);
+        Assertions.assertThat(findAll2.size()).isEqualTo(0);
     }
 
 

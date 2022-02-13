@@ -1,6 +1,7 @@
 package springJr.foodbasket.web.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import springJr.foodbasket.domain.Category;
 import springJr.foodbasket.domain.Location;
 import springJr.foodbasket.domain.Status;
@@ -9,6 +10,7 @@ import springJr.foodbasket.domain.foods.Food;
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 public class FoodResponseDto {
 
     private String name;

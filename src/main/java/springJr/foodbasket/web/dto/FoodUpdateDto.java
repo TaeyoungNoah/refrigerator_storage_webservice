@@ -1,12 +1,14 @@
 package springJr.foodbasket.web.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import springJr.foodbasket.domain.Category;
 import springJr.foodbasket.domain.Location;
 
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 public class FoodUpdateDto {
 
     private String name;

@@ -231,6 +231,9 @@
 
 - Web 구현
 
+  - Api Controller 구현 & Test 코드 작성 ✅
+  - Controller 및 View 구현
+
 
 
 

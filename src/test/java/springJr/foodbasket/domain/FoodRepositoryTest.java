@@ -89,6 +89,70 @@ public class FoodRepositoryTest {
     }
 
     @Test
+    public void 냉장실_조회() throws Exception {
+        // given
+        Food foodRef = Food.builder()
+                .name("REFRIGERATOR")
+                .quantity(1)
+                .category(Category.FRUIT)
+                .location(Location.REFRIGERATOR)
+                .expirationDate(nowPlusOneMonth)
+                .build();
+        Food foodFre = Food.builder()
+                .name("FREEZER")
+                .quantity(1)
+                .category(Category.FRUIT)
+                .location(Location.FREEZER)
+                .expirationDate(nowPlusOneMonth)
+                .build();
+
+        foodRepository.save(foodRef);
+        foodRepository.save(foodFre);
+
+        // when
+        List<Food> allRefrigerator = foodRepository.findByLocation(Location.REFRIGERATOR);
+
+        // then
+        Assertions.assertThat(allRefrigerator.get(0).getName()).isEqualTo("REFRIGERATOR");
+        Assertions.assertThat(allRefrigerator.get(0).getLocation()).isEqualTo(Location.REFRIGERATOR);
+        Assertions.assertThat(allRefrigerator.size()).isEqualTo(1);
+
+
+    }
+
+    @Test
+    public void 냉동실_조회() throws Exception {
+        // given
+        Food foodRef = Food.builder()
+                .name("REFRIGERATOR")
+                .quantity(1)
+                .category(Category.FRUIT)
+                .location(Location.REFRIGERATOR)
+                .expirationDate(nowPlusOneMonth)
+                .build();
+        Food foodFre = Food.builder()
+                .name("FREEZER")
+                .quantity(1)
+                .category(Category.FRUIT)
+                .location(Location.FREEZER)
+                .expirationDate(nowPlusOneMonth)
+                .build();
+
+        foodRepository.save(foodRef);
+        foodRepository.save(foodFre);
+
+        // when
+        List<Food> allFreezer = foodRepository.findByLocation(Location.FREEZER);
+
+        // then
+        Assertions.assertThat(allFreezer.get(0).getName()).isEqualTo("FREEZER");
+        Assertions.assertThat(allFreezer.get(0).getLocation()).isEqualTo(Location.FREEZER);
+        Assertions.assertThat(allFreezer.size()).isEqualTo(1);
+
+
+    }
+
+    @Test
     public void BaseTimeEntity_등록확인() throws Exception {
         // given
         LocalDateTime flag = LocalDateTime.of(2021,1,1,1,1);
